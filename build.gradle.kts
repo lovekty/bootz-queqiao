@@ -1,20 +1,33 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     `java-library`
+    kotlin("jvm") version "1.4.21" apply false
 }
 
 group = "cn.bootz.queqiao"
 version = "0.0.1"
 
+val javaVersion = "1.8"
+val springBootVersion = "2.4.1"
+val springCloudVersion = "Ilford.RELEASE"
+
 allprojects {
     apply<JavaLibraryPlugin>()
 
-    java.sourceCompatibility = JavaVersion.VERSION_1_8
-    java.targetCompatibility = JavaVersion.VERSION_1_8
+    java.sourceCompatibility = JavaVersion.toVersion(javaVersion)
+    java.targetCompatibility = JavaVersion.toVersion(javaVersion)
 
-}
-
-subprojects {
     dependencies {
-        implementation(platform("org.springframework.boot:spring-boot-dependencies:2.4.0"))
+        implementation(platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))
+//        implementation(platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"))
     }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = javaVersion
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+        }
+    }
+
 }
