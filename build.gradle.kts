@@ -10,7 +10,7 @@ version = "0.0.1"
 
 val javaVersion = "1.8"
 val springBootVersion = "2.4.1"
-val springCloudVersion = "Ilford.RELEASE"
+val springCloudVersion = "2020.0.0"
 
 allprojects {
     apply<JavaLibraryPlugin>()
@@ -20,7 +20,7 @@ allprojects {
 
     dependencies {
         implementation(platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))
-//        implementation(platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"))
+        implementation(platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"))
     }
 
     tasks.withType<KotlinCompile> {
